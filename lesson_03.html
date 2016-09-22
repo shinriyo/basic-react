@@ -1,0 +1,96 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">関数型のコーディング</h1>
+
+<p>Reactでコンポーネントを書く際は関数型のコーディングの方が楽な場合が多いです。</p>
+
+<p>関数型プログラミングも奥が深いですが、本講座でよく使う文法について紹介します。</p>
+
+<h2 id="purefunction">pure function</h2>
+
+<p>pure functionとは、一般的に副作用がない関数のことです。</p>
+
+<pre><code>const pureFunc = (x) =&gt; { let y = x + 1; return y; };
+
+let y;
+const notPure = (x) =&gt; { y = x + 1; return y; };
+
+const notPure2 = (x) =&gt; { console.log('foo'); return x + 1; };
+</code></pre>
+
+<h2 id="logicaloperators">logical operators</h2>
+
+<p>論理演算子には、<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>の3つがあります。</p>
+
+<p><code>x &amp;&amp; y</code>という表現は、xがfalsyの場合はxであり、そうでない場合はyになります。falsyとは、<code>false</code>,<code>null</code>,<code>0</code>,<code>''</code>などの値です。<a href="https://developer.mozilla.org/ja/docs/Glossary/Falsy">詳しくはこちら</a>。</p>
+
+<p><code>x || y</code>という表現は、xがfalsyの場合はyであり、そうでない場合はxになります。</p>
+
+<p><code>!x</code>という表現は、xがfalsyの場合は<code>true</code>であり、そうでない場合は<code>false</code>になります。</p>
+
+<p>ポイント：<code>x</code>は真偽値(boolean)でなくてもよいです</p>
+
+<pre><code>0 &amp;&amp; 1
+// 0
+
+1 &amp;&amp; 2
+// 2
+
+0 || 1
+// 1
+
+0 || 1
+// 0
+
+!0
+// true
+
+!1
+// false
+</code></pre>
+
+<h2 id="ternaryoperator">ternary operator</h2>
+
+<p>三項演算子もよく使います。うまく使えば便利です。</p>
+
+<p><code>x ? y : z</code>という表現は、xがfalsyの場合はzであり、そうでない場合はyになります。</p>
+
+<pre><code>0 ? 1 : 2
+// 2
+
+3 ? 4 : 5
+// 4
+</code></pre>
+
+<h2 id="filter">filter</h2>
+
+<p>Array.filterは配列から部分配列を作る関数です。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">参照</a></p>
+
+<p>引数で与えたテスト関数がtruthy(つまりfalsyでない)を返す要素の配列を返します。配列は新しく作られますが、要素はコピーされません。
+テスト関数にはアロー関数を使うと簡便に書くことができます。</p>
+
+<pre><code>[1, 2, 3, 4].filter((x) =&gt; (x &gt; 2))
+// [3, 4]
+
+['a', 'ab', 'abc', 'abcd'].filter((x) =&gt; (x.length &lt;= 2))
+// ['a', 'ab']
+
+[0, 1, 2, '', 'a', false, true].filter((x) =&gt; (x));
+// [1, 2, 'a', true]
+</code></pre>
+
+<h2 id="map">map</h2>
+
+<p>Array.mapは配列から要素ごとに変換して新しい配列を作る関数です。<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/map">参照</a></p>
+
+<p>引数で与えられた変換関数で返される値を要素にもつ配列を返します。配列は新しく作られます。要素数は変化しません。</p>
+
+<pre><code>[1, 2, 3, 4].map((x) =&gt; (x * 2))
+// [2, 4, 6, 8]
+
+['a', 'ab', 'abc', 'abcd'].map((x) =&gt; (x.length))
+// [1, 2, 3, 4]
+
+[1, 2, 'a', 'b'].map((x) =&gt; ('あ' + x))
+// ['あ1', 'あ2', 'あa', 'あb']
+</code></pre>

@@ -1,0 +1,101 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">配列から展開する</h1>
+
+<p>propsを渡せるようになったら、覚えたいのがデータなどの配列からコンポーネントを展開することです。これができるとより再利用性の価値が生まれるでしょう。</p>
+
+<h2 id="-1">データ配列を定義する</h2>
+
+<p>最初に、データオブジェクトの配列を定義します。今回はシンプルに<code>name</code>と<code>color</code>をプロパティに持つオブジェクトの配列としましょう。</p>
+
+<pre><code>const items = [
+  { name: 'aaa', color: 'black' },
+  { name: 'bbb', color: 'green' },
+  { name: 'ccc', color: 'pink' },
+  { name: 'ddd', color: 'yellow' },
+];
+</code></pre>
+
+<p>さて、Helloコンポーネントはこれまでと同じで、<code>name</code>を受け取って、Helloを表示するものとしましょう。</p>
+
+<pre><code>const Hello = ({ name, color }) =&gt; (
+  &lt;div&gt;
+    &lt;p style={{ color }}&gt;Hello {name}!&lt;/p&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<h2 id="-2">配列を展開してコンポーネントを呼び出す</h2>
+
+<p>定義した配列を使って、Helloコンポーネントを展開します。これには、<code>Array.map</code>を使います。</p>
+
+<p>最初に、<code>map</code>を使わずに手動で展開してAppコンポーネントを定義してみましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello name={items[0].name} color={items[0].color} /&gt;
+    &lt;Hello name={items[1].name} color={items[1].color} /&gt;
+    &lt;Hello name={items[2].name} color={items[2].color} /&gt;
+    &lt;Hello name={items[3].name} color={items[3].color} /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>Helloが4つ表示されましたか？</p>
+
+<p>4つの場合はそれほど苦労はありませんが、もっと数が多い場合や、数が決まっていない場合は、プログラムで処理をしたくなります。</p>
+
+<p><code>map</code>を使って同じことをするAppコンポーネントはこちらです。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    {items.map((item) =&gt; (
+      &lt;Hello name={item.name} color={item.color} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>少し複雑ですが見ていきましょう。
+一番外側の<code>{}</code>はJSX内でJavaScriptを書くためのものです。
+<code>items.map</code>により、配列の要素ごとに処理が呼び出されます。
+呼び出される処理はアロー関数で定義されたもので、Helloコンポーネントを呼び出しています。この際に渡しているpropsに注意しましょう。</p>
+
+<p>さて、実行して先ほどと同じ結果が得られたでしょうか？</p>
+
+<h2 id="-3">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const items = [
+  { name: 'aaa', color: 'black' },
+  { name: 'bbb', color: 'green' },
+  { name: 'ccc', color: 'pink' },
+  { name: 'ddd', color: 'yellow' },
+];
+
+const Hello = ({ name, color }) =&gt; (
+  &lt;div&gt;
+    &lt;p style={{ color }}&gt;Hello {name}!&lt;/p&gt;
+  &lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    {items.map((item) =&gt; (
+      &lt;Hello name={item.name} color={item.color} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-4">オプション課題</h2>
+
+<ol>
+<li>itemsの要素数を増やしてみよう</li>
+
+<li>itemsのプロパティを増やしてみよう</li>
+
+<li>[難問] 2次元配列を定義して、表示してみよう</li>
+</ol>

@@ -1,0 +1,70 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="es2015">ES2015について</h1>
+
+<p>Reactでコーディグする際はES2015(=ES6)を使うと便利になることがあります。ES2015は現状ではトランスパイルが必要ですが、後で述べるJSXを使うにはいずれにしてもトランスパイルすることになるため、ES2015を使うことの敷居が相対的に下がっています。</p>
+
+<p>本講座はES2015を学習することを目的とはしませんが、よく使う文法について紹介します。</p>
+
+<h2 id="constlet">constとlet</h2>
+
+<p>ES2015では<code>var</code>は基本的に使わず、代わりに<code>const</code>と<code>let</code>を使うことが推奨されます。</p>
+
+<p><code>const</code>は再代入しない変数の宣言に用います。<code>let</code>は再代入が必要な変数の宣言に用います。再代入とimmutabilityは別物ですので注意が必要です。</p>
+
+<pre><code>const x = 1;
+let y = 2;
+y = 3;
+
+const z = { a: 4, b: 5 };
+z.a = 6;
+</code></pre>
+
+<h2 id="objectshorthand">object shorthand</h2>
+
+<p>ES2015ではオブジェクトのプロパティ名と値の変数名が同じ場合、省略記法を使うことができます。</p>
+
+<pre><code>const foo = 'abc';
+const bar = { foo }; // same as { foo: foo }
+</code></pre>
+
+<h2 id="destructuringobject">destructuring object</h2>
+
+<p>ES2015ではdestructuring assignmentという簡便な記法が使えます。特にオブジェクトについての記法を紹介します。変数への代入だけでなく、関数のパラメータ宣言でも用います。</p>
+
+<pre><code>const obj = { first: 'Ebisu', last: 'JS' };
+const { first, last } = obj;
+// first === 'Ebisu', last === 'JS'
+
+function printName({ first, last }) { console.log(first, last); }
+printName(obj);
+
+// same as
+// function printName(name) { console.log(name.first, name.last); }
+</code></pre>
+
+<h2 id="">アロー関数について</h2>
+
+<p><code>() =&gt; ...</code>という記法はアロー関数と呼ばれます。</p>
+
+<p>アロー関数に関する詳細は、例えば下記を参照してください。 <br />
+<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/arrow_functions">https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/arrow_functions</a></p>
+
+<p><code>this</code>に関するスコープの話を置いておくと、アロー関数は通常の関数の省略記法と考えることができます。</p>
+
+<pre><code>const f1 = function(x) { console.log(x); };
+const f2 = (x) =&gt; { console.log(x); };
+// f1 and f2 is almost the same
+</code></pre>
+
+<p>アロー関数は<code>return</code>文が一つだけの場合は、文そのものを省略できます。</p>
+
+<pre><code>const f3 = (x) =&gt; { return (x + 1); };
+const f4 = (x) =&gt; (x + 1);
+// f3 and f4 is the same
+</code></pre>
+
+<p>おまけ：カッコの省略も可能ですが、好みの問題でもあります。</p>
+
+<pre><code>const f5 = x =&gt; x + 1;
+</code></pre>

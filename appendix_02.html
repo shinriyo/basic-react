@@ -1,0 +1,46 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="state">コンポーネントのstate</h1>
+
+<p>コンポーネントにはprops以外にもstateと言う状態を持つ手段があります。</p>
+
+<p>本講座ではstateless functionを基本としてコンポーネントを書くため、stateを使う機会は少ないことに加えて、最近ではredux等を使うとsingle storeでstateを管理することになり、コンポーネントレベルのstateは使わなくても済みます。</p>
+
+<h2 id="state-1">stateを使う場合</h2>
+
+<p>stateを使う方法を紹介します。いくつかの書き方がありますが、ES2015のclassを使う書き方を紹介します。</p>
+
+<pre><code>class Hello extends React.Component {
+  constructor() {
+    this.state = { count: 1 };
+    this.incrementCount = this.incrementCount.bind(this);
+  }
+  incrementCount() {
+    this.setState({ count: this.count + 1 });
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        Hello {this.props.name}
+        &lt;button onClick={this.incrementCount}&gt;
+          count={this.state.count}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+
+<h2 id="reactcomposestate">react-compose-state</h2>
+
+<p>single storeを使う場合はコンポーネントレベルのstateを使うことは基本的にはありません。一方、個人プロジェクトなどの手軽なコーディングではsingle storeはオーバスペックである場合もあります。そのような場合でコンポーネントレベルのstateを使いつつ、上記のようなclassを使わない方法としてreact-compose-stateがあります。参考までにそれを使うと上記のコードは次のように書けます。</p>
+
+<pre><code>const Hello = composeWithState({ count: 1 })(({ name, count, setCount }) =&gt; (
+  &lt;div&gt;
+    Hello {name}
+    &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+      count={count}
+    &lt;/button&gt;
+  &lt;/div&gt;
+);
+</code></pre>

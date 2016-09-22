@@ -1,0 +1,162 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">フォームを定義する</h1>
+
+<p>コンポーネントで表示系ができるようになったら、入力系に移りましょう。
+ボタンやテキストボックスなどのフォーム部品を表示してみましょう。</p>
+
+<h2 id="-1">ボタンを表示する</h2>
+
+<p>ボタンを表示するMyButtonコンポーネントを作ります。</p>
+
+<pre><code>const MyButton = () =&gt; (
+  &lt;div&gt;
+    &lt;button&gt;Click Me&lt;/button&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>このボタンをAppで読み込みましょう。
+慣れてきている場合は、すべてを置き換えることなく、1行追加するだけでやってみましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyButton /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>ボタンが表示されましたか？</p>
+
+<h2 id="-2">ボタンのイベントを受け取る</h2>
+
+<p>ボタンをクリックした場合のclickイベントを受け取りましょう。
+これには<code>onClick</code>を指定します。
+簡単のためalertでメッセージを表示します。</p>
+
+<pre><code>const MyButton = () =&gt; (
+  &lt;div&gt;
+    &lt;button onClick={() =&gt; alert('clicked')}&gt;Click Me&lt;/button&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>この記法も戸惑うかもしれませんが、アロー関数でイベントハンドラーを定義しています。</p>
+
+<p>ボタンを押したら、alertが表示されましたか？</p>
+
+<h2 id="-3">テキストボックスを定義する</h2>
+
+<p>テキストボックスの表示は、ボタンとほぼ同様です。</p>
+
+<pre><code>const MyBox = () =&gt; (
+  &lt;div&gt;
+    &lt;input type="text" /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>Appコンポーネントも修正しましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyBox /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>テキストボックスが表示されましたか？</p>
+
+<h2 id="-4">テキストボックスを制御する</h2>
+
+<p>Reactの魅力の一つとして、フォームの値の制御が柔軟にできるということがあります。いわゆるフォームのバリデーションが、任意のコードで書くことができます。</p>
+
+<p>まず、テキストボックスのテキストデータを保持する方法が必要です。
+本来であれば、stateやstoreといった保持方法を用いるとよいですが、
+ここでは簡単のためグローバル変数を用います。</p>
+
+<pre><code>let textData = '';
+const setTextData = (event) =&gt; {
+  textData = event.target.value;
+};
+const MyBox = () =&gt; (
+  &lt;div&gt;
+    &lt;input type="text" value={textData} onChange={setTextData} /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>残念ながらこれだけでは動きません。データを変更しても自動では再描画されないためです。two-way data bindingではないからです。</p>
+
+<p>試しに実行して、テキストボックスに文字を入れようとしてみてください。</p>
+
+<p>期待通りに動かすために
+JavaScriptコードの最後の方に定義されている<code>render()</code>をtextデータが更新されるたびに呼び出します。</p>
+
+<pre><code>const setTextData = (event) =&gt; {
+  textData = event.target.value;
+  render();
+};
+</code></pre>
+
+<p>さて、これでフォームが正常に機能するはずでず。</p>
+
+<p>ここで、<code>event.target.value</code>というものが出てきましたが、これはDOMの記法です。Reactを用いるとDOM操作は基本的に行いませんが、DOMの基本は多少理解しておく必要があります。イベントハンドラにはDOMイベントが引数で渡されます。<a href="https://developer.mozilla.org/ja/docs/Web/API/Event">参考</a></p>
+
+<h2 id="-5">バリデーションを行う</h2>
+
+<p>テキストボックスの文字数を制限するバリデーションを追加してみましょう。
+ここは、Reactの知識はほぼ不要で純粋なJavaScriptになります。</p>
+
+<pre><code>const setTextData = (event) =&gt; {
+  textData = event.target.value;
+  if (textData.length &gt; 10) {
+    textData = textData.slice(0, 10);
+  }
+  render();
+};
+</code></pre>
+
+<p>動作を確認しましょう。10文字より多く入力できないようになっていますか？</p>
+
+<h2 id="-6">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const MyButton = () =&gt; (
+  &lt;div&gt;
+    &lt;button onClick={() =&gt; alert('clicked')}&gt;Click Me&lt;/button&gt;
+  &lt;/div&gt;
+);   
+
+let textData = '';
+const setTextData = (event) =&gt; {
+  textData = event.target.value;
+  if (textData.length &gt; 10) {
+    textData = textData.slice(0, 10);
+  }
+  render();
+};
+const MyBox = () =&gt; (
+  &lt;div&gt;
+    &lt;input type="text" value={textData} onChange={setTextData} /&gt;
+  &lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyBox /&gt;
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-7">オプション課題</h2>
+
+<ol>
+<li>ボタンを複数配置してみよう</li>
+
+<li>バリデーションで20文字まで許可するように修正してみよう</li>
+
+<li>[難問] バリデーションで、数字を使えなくし、小文字を大文字に変換してみよう</li>
+</ol>

@@ -1,0 +1,26 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="presentationalcontainercomponents">presentational/container components</h1>
+
+<p>最近の考え方として、コンポーネントの役割を2種類に分けるというものがあります。<a href="http://redux.js.org/docs/basics/UsageWithReact.html">Reduxで提案された</a>ようですが、必ずしもReduxに限る話ではありません。</p>
+
+<p>表示に特化するコンポーネントはpresentational componentもしくはdump componentもしくはview componentと呼ばれ、データの処理を扱うコンポーネントはcontainer componentもしくはsmart componentoと呼ばれます。</p>
+
+<h2 id="2">2種類に分離した例</h2>
+
+<pre><code>const Hello = ({ name, onClickButton }) =&gt; (
+  &lt;div&gt;
+    Hello {name}
+    &lt;button onClick={onClickButton}&gt;Click me&lt;/button&gt;
+  &lt;/div&gt;
+);
+
+const HelloContainer = ({ store }) =&gt; (
+  &lt;Hello
+    name={store.getState().name}
+    onClickButton={store.dispatch({ type: 'CHANGE_NAME_RANDOMLY' })}
+  /&gt;
+);
+</code></pre>
+
+<p>このように分離すると、presentation componentがデータレイヤから切り離されるため、再利用性が上がるというメリットがあります。</p>

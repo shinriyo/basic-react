@@ -1,0 +1,50 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="jsxvscreateelement">JSX vs. createElement</h1>
+
+<p>コンポーネントの定義においてはJSXというJavaScriptを拡張した記法が使うことが多いですが、賛否両論あります。現在では、JSXを使う方が主流です。</p>
+
+<p>JSXはHTMLのように見えますがXMLです。XMLの文法に合わないとエラーになります。また、classという属性は予約後でありHTMLのclassは使えないなどの制約があります。</p>
+
+<p>JSXはビルド時にJavaScriptに変換されます。JSXがどのようにJavaScriptに変換されるかは、直接書かないとしても理解しておくことが重要です。JSXを使わずに直接JavaScriptを書くことはドキュメントに明記されていますし、Facebookの中の人も使っているようです。</p>
+
+<h2 id="">比較</h2>
+
+<p>JSX:</p>
+
+<pre><code>&lt;div className="foo"&gt;
+  &lt;Hello name="aaa" /&gt;
+  &lt;Hello name="bbb" /&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>JavaScript:</p>
+
+<pre><code>React.createElement('div', { className: 'foo' },
+  React.createElement('Hello', { name: 'aaa' }),
+  React.createElement('Hello', { name: 'bbb' })
+);
+</code></pre>
+
+<p>もしくは:</p>
+
+<pre><code>// import { createElement as H } from 'react';
+const H = React.createElement;
+
+H('div', { className: 'foo' },
+  H('Hello', { name: 'aaa' }),
+  H('Hello', { name: 'bbb' })
+);
+</code></pre>
+
+<h2 id="-1">詳しくは</h2>
+
+<p>公式ドキュメントのリンクはこちらです。</p>
+
+<ul>
+<li><a href="http://facebook.github.io/react/docs/jsx-in-depth-ja-JP.html">http://facebook.github.io/react/docs/jsx-in-depth-ja-JP.html</a></li>
+
+<li><a href="http://facebook.github.io/react/docs/jsx-spread-ja-JP.html">http://facebook.github.io/react/docs/jsx-spread-ja-JP.html</a></li>
+
+<li><a href="http://facebook.github.io/react/docs/jsx-gotchas-ja-JP.html">http://facebook.github.io/react/docs/jsx-gotchas-ja-JP.html</a></li>
+</ul>

@@ -1,0 +1,80 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">コンポーネントの書き方</h1>
+
+<p>コンポーネントには複数の書き方があります。</p>
+
+<h2 id="createclass">createClass</h2>
+
+<p>ドキュメントに記載されている基本的な書き方です。</p>
+
+<pre><code>var Hello = React.createClass({
+  render: function() {
+     return (
+       &lt;div&gt;Hello {this.props.name}&lt;/div&gt;
+     );
+  }
+})
+</code></pre>
+
+<h2 id="extendscomponent">extends Component</h2>
+
+<p>ES2015で可能になった書き方です。ES2015が使える環境ではこちらが推奨されています。</p>
+
+<pre><code>class Hello extends React.Component {
+  render() {
+    return (
+      &lt;div&gt;Hello {this.props.name}&lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+
+<h2 id="function">function</h2>
+
+<p>React v0.14から可能になったfunction componentsです。
+<a href="https://github.com/airbnb/javascript">Airbnb JavaScript style guide</a>で推奨されています。</p>
+
+<pre><code>function Hello(props) {
+  return (
+    &lt;div&gt;Hello {props.name}&lt;/div&gt;
+  );
+}
+</code></pre>
+
+<h2 id="arrowfunction">arrow function</h2>
+
+<p>ES2015の場合はアロー関数でも書けます。</p>
+
+<pre><code>const Hello = (props) =&gt; (
+  &lt;div&gt;Hello {props.name}&lt;/div&gt;
+);
+</code></pre>
+
+<p>returnが必要な場合は次のようにします。</p>
+
+<pre><code>const Hello = (props) =&gt; {
+  // ここに何かしらの処理が入る場合
+  return (
+    &lt;div&gt;Hello {props.name}&lt;/div&gt;
+  );
+};
+</code></pre>
+
+<h2 id="destructuring">destructuring</h2>
+
+<p>ES2015ではpropsを引数宣言で展開することができます。本講座で主に使う書き方です。</p>
+
+<pre><code>const Hello = ({ name }) =&gt; (
+  &lt;div&gt;Hello {props.name}&lt;/div&gt;
+);
+</code></pre>
+
+<p>functionの宣言でも可能です。</p>
+
+<pre><code>function Hello({ name }) {
+  return (
+    &lt;div&gt;Hello {name}&lt;/div&gt;
+  );
+}
+</code></pre>

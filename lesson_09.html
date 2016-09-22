@@ -1,0 +1,146 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">フォームを使う</h1>
+
+<p>フォームを使ってデータを書き換えてみましょう。</p>
+
+<h2 id="-1">データを追加する</h2>
+
+<p>テキストボックスとボタンを表示するMyFormコンポーネントを作ります。</p>
+
+<pre><code>const items = [
+  { name: 'aaa', color: 'black' },
+  { name: 'bbb', color: 'green' },
+  { name: 'ccc', color: 'pink' },
+  { name: 'ddd', color: 'yellow' },
+];
+
+let nameData = '';
+const setNameData = (event) =&gt; {
+  nameData = event.target.value;
+  render();
+};
+const addData = () =&gt; {
+  items.push({ name: nameData, color: 'black' });
+  nameData = '';
+  render();
+};
+const MyForm = () =&gt; (
+  &lt;div&gt;
+    &lt;input type="text" value={nameData} onChange={setNameData} /&gt;
+    &lt;button onClick={addData}&gt;Add Data&lt;/button&gt;
+  &lt;/div&gt;
+);
+
+const Hello = ({ name, color }) =&gt; (
+  &lt;div&gt;
+    &lt;p style={{ color }}&gt;Hello {name}!&lt;/p&gt;
+  &lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyForm /&gt;
+    {items.map((item) =&gt; (
+      &lt;Hello name={item.name} color={item.color} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>テキストボックスで入力したデータをボタンがクリックされた時に<code>items</code>に追加するようになっています。</p>
+
+<p>期待通りに動作することを確認しましょう。</p>
+
+<h2 id="-2">データを削除する</h2>
+
+<p>データが登録できたら削除もできるようにしましょう。</p>
+
+<pre><code>const Hello2 = ({ name, color, onDelete }) =&gt; (
+  &lt;div&gt;
+    &lt;p&gt;
+      &lt;span style={{ color }}&gt;Hello {name}!&lt;/span&gt;
+      &lt;button onClick={() =&gt; onDelete()}&gt;Delete&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+);
+
+const deleteItem = (index) =&gt; {
+  items.splice(index, 1);
+  render();
+};
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyForm /&gt;
+    {items.map((item, index) =&gt; (
+      &lt;Hello2 name={item.name} color={item.color} onDelete={() =&gt; deleteItem(index)} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>削除する処理はAppコンポーネントにありますが、実際の削除ボタンはHello2コンポーネントにあるため、<code>onDelete</code>というコールバック関数をpropsとして渡しています。</p>
+
+<p>動作を確認しましょう。</p>
+
+<h2 id="-3">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const items = [
+  { name: 'aaa', color: 'black' },
+  { name: 'bbb', color: 'green' },
+  { name: 'ccc', color: 'pink' },
+  { name: 'ddd', color: 'yellow' },
+];
+
+let nameData = '';
+const setNameData = (event) =&gt; {
+  nameData = event.target.value;
+  render();
+};
+const addData = () =&gt; {
+  items.push({ name: nameData, color: 'black' });
+  nameData = '';
+  render(); 
+};
+const MyForm = () =&gt; (
+  &lt;div&gt;
+    &lt;input type="text" value={nameData} onChange={setNameData} /&gt;
+    &lt;button onClick={addData}&gt;Add Data&lt;/button&gt;
+  &lt;/div&gt;
+);
+
+const Hello2 = ({ name, color, onDelete }) =&gt; (
+  &lt;div&gt;
+    &lt;p&gt;
+      &lt;span style={{ color }}&gt;Hello {name}!&lt;/span&gt;
+      &lt;button onClick={() =&gt; onDelete()}&gt;Delete&lt;/button&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+);
+
+const deleteItem = (index) =&gt; {
+  items.splice(index, 1);
+  render();
+};
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;MyForm /&gt;
+    {items.map((item, index) =&gt; (
+      &lt;Hello2 name={item.name} color={item.color} onDelete={() =&gt; deleteItem(index)} /&gt;
+    ))}
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-4">オプション課題</h2>
+
+<ol>
+<li><code>color</code>で指定する色も入力できるようにしてみましょう</li>
+
+<li>削除時に確認のconfirmを出すようにしてみましょう</li>
+
+<li>[難問] データを修正する機能を追加してみましょう</li>
+</ol>

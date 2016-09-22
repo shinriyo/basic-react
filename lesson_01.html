@@ -1,0 +1,53 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="react">React勉強用環境</h1>
+
+<p>JS Binを使います。</p>
+
+<h2 id="">アクセス先</h2>
+
+<p><a href="https://jsbin.com">https://jsbin.com</a></p>
+
+<h2 id="-1">初期設定</h2>
+
+<p>下記の手順を実施してください。</p>
+
+<ol>
+<li>左上の「×」を押して画面を広くする</li>
+
+<li>Add libraryで「React + ReactDOM 15.1.0」を選択する</li>
+
+<li>HTMLの<code>&lt;body&gt;</code>タグの中に<code>&lt;div id="app"&gt;&lt;/div&gt;</code>を追記する</li>
+
+<li>HTMLボタンを押してHTMLタブを消す</li>
+
+<li>JavaScriptボタンを押してJavaScriptタブを表示する</li>
+
+<li>青字のJavaScriptの右にある三角マークを押して、ドロップダウンから「ES6/Babel」を選択する (このエリアをJavaScriptエリアと呼ぶ)</li>
+</ol>
+
+<h2 id="-2">動作確認のコード</h2>
+
+<p>下記をJavaScriptエリアに入力して、Outputエリアに"Hello React!"と表示されることを確認しましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;Hello React!&lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-3">補足</h2>
+
+<ul>
+<li>ブラウザをリロードすると設定が戻ってしまうのでAdd libraryなどやり直す</li>
+
+<li>warningsが出ることがありますが、今回は気にしない</li>
+
+<li>errorsが出ると動かないので、修正する</li>
+
+<li>必要に応じてConsoleタブを使うとデバッグできる</li>
+
+<li>左上のロゴマークを押してKeyboard Shortcutsを参照できる</li>
+</ul>

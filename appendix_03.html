@@ -1,0 +1,35 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">コンポーネントのライフサイクルメソッド</h1>
+
+<p>コンポーネントには<a href="http://facebook.github.io/react/docs/component-specs.html#lifecycle-methods">ライフサイクルメソッド</a>というものがあります。</p>
+
+<p>本講座ではstateless functionを基本としてコンポーネントを書くため、ライフサイクルメソッドは扱いませんが、場合によってはライフサイクルメソッドが必要になる場合もあります。</p>
+
+<p>例えば、コンポーネントが初めて使われた時だけ行う処理がある場合です。APIを用いてサーバからデータを取得するかもしれませんし、他のJavaScriptライブラリの初期化コードを走らせるかもしれません。</p>
+
+<h2 id="componentdidmount">componentDidMount</h2>
+
+<p>ライフサイクルメソッドを一つだけ紹介します。コンポーネントが初めて使われた時にDOMレンダリング後に呼ばれるものです。他のライフサイクルメソッドはドキュメントを参照してください。</p>
+
+<pre><code>class Hello extends React.Component {
+  componentDidMount() {
+    console.log('Hello component is initialized.');
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        Hello {this.props.name}
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+
+<h2 id="statelessfunction">stateless functionで書けないケース</h2>
+
+<p>このようにライフサイクルメソッドを使わなければいけない場合はstateless functionでコンポーネントを書くことはできません。しかし、それをカバーするライブラリがそのうち登場するかもしれません。</p>
+
+<p>stateを直接使う場合もstateless functionは使えません。</p>
+
+<p>一方、<code>ref</code>を使う場合もstateless functionは使えませんが、<code>ref</code>の使用は現在では非推奨なので、それが大きな理由にはなりません。</p>

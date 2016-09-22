@@ -1,0 +1,95 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="props">コンポーネントでpropsを使う</h1>
+
+<p>コンポーネントを作る目的は再利用性です。ところがこれまでのところ、コンポーネントは必ず同じものを出力していたため再利用と言っても複製しかできません。再利用が有効に働くようにするにはパラメータを受け取るようにできることが重要です。</p>
+
+<h2 id="props-1">propsを受け取る</h2>
+
+<p>Reactではコンポーネントが受け取るパラメータオブジェクトをpropsと言います。propsは通常のJavaScriptオブジェクトです。</p>
+
+<p>Helloコンポーネントで「名前」をパラメータとして受け取ってみましょう。</p>
+
+<pre><code>const Hello = ({ name }) =&gt; (
+  &lt;div&gt;Hello {name}&lt;/div&gt;
+);
+</code></pre>
+
+<p>ここでの注意点は二つです。一行目の<code>{ name }</code>は、propsのうちnameを取り出して受け取っているところです。</p>
+
+<p>二行目の<code>{name}</code>はJSX内でJavaScriptの表現を使っているところです。JSX内の<code>{}</code>には任意のJavaScript表現を書くことができます。
+例えば、<code>name</code>だけでなく、<code>name + '!'</code>や<code>1 + 3</code>なども書くことができます。</p>
+
+<h2 id="props-2">propsを渡す</h2>
+
+<p>propsはコンポーネントを使うところで渡す必要があります。その書式は、XMLの属性になります。例えば、<code>name</code>に<code>World</code>という文字列を渡してHelloコンポーネントを呼び出しましょう。Appコンポーネントを次のように書き換えます。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello name="World" /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>見慣れた感じではないでしょうか。複数のpropsを渡す場合は、複数の属性を書くことになります。また、<code>name="World"</code>の部分は<code>name={"Mina" + 3}</code>などとしてJavaScript表現を書くことも可能です。</p>
+
+<p>さて、HelloコンポーネントとAppコンポーネントを修正したら実行してみましょう。</p>
+
+<p>「Hello World」と表示されましたか？</p>
+
+<h2 id="">コンポーネントを再利用する</h2>
+
+<p>Helloコンポーネントを複数回利用してみましょう。</p>
+
+<p>まず、Helloコンポーネントに少し手を加えます。せっかくなので色をつけてみましょう。</p>
+
+<pre><code>const Hello = ({ name, color }) =&gt; (
+  &lt;div&gt;
+    &lt;p style={{ color }}&gt;Hello {name}!&lt;/p&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>ここで、<code>style={}</code>の中の<code>{ color }</code>は<code>{ color: color }</code>の意味です。
+ES2015では省略して書くことができます。</p>
+
+<p>次に、Appコンポーネントを次のようにします。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello name="World" color="blue" /&gt;
+    &lt;Hello name="Ebisu" color="red" /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>Helloが二行表示されましたか？</p>
+
+<h2 id="-1">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const Hello = ({ name, color }) =&gt; (
+  &lt;div&gt;
+    &lt;p style={{ color }}&gt;Hello {name}!&lt;/p&gt;
+  &lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello name="World" color="blue" /&gt;
+    &lt;Hello name="Ebisu" color="red" /&gt;
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-2">オプション課題</h2>
+
+<ol>
+<li>Helloコンポーネントを3つにしてみよう</li>
+
+<li>propsを3つにしてみよう</li>
+
+<li>propsを受け取る新たなコンポーネントを定義してみよう</li>
+</ol>

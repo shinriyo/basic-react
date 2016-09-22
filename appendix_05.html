@@ -1,0 +1,26 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="proptypes">PropTypes</h1>
+
+<p>本講座のメインのレッスンでは扱いませんでしたが、コンポーネントには<code>propTypes</code>を指定するのが一般的です。これを指定すると、propsが不足していたり、型が異なる時などに、分かりやすいエラーメッセージが出てくるため、デバッグが楽になります。</p>
+
+<h2 id="proptypes-1">propTypesの指定の例</h2>
+
+<p>コンポーネントの書き方に合わせて複数の書き方があります。また、以前の書き方と最近の書き方で推奨が変わっているようです。</p>
+
+<pre><code>const Hello = ({ name }) =&gt; (
+  &lt;div&gt;Hello {name}&lt;/div&gt;
+);
+Hello.propTypes = {
+  name: React.PropTypes.string.isRequired,
+};
+</code></pre>
+
+<h2 id="defaultprops">default propsの書き方</h2>
+
+<p>コンポーネントにpropsが渡されなかった時のデフォルトのpropsを書くことができます。これもコンポーネントの書き方によりますが、ES2015のfunctionを使う場合は簡単に書けます。</p>
+
+<pre><code>const Hello = ({ name } = { name: 'World' }) =&gt; (
+  &lt;div&gt;Hello {name}&lt;/div&gt;
+);
+</code></pre>

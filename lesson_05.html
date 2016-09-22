@@ -1,0 +1,93 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">コンポーネントにスタイルをつける</h1>
+
+<p>HTMLでCSSを使ってスタイルをつけるように、コンポーネントでも同じことができます。
+Reactでは<a href="https://facebook.github.io/react/tips/inline-styles.html">Inline styles</a>という方法でスタイルをつけることができます。
+CSSをclass名指定でつけることもできますが、ファイルが分かれてしまうこと、名前の衝突の問題があることから、必ずしもよい方法ではなくなっています。</p>
+
+<h2 id="hello">Helloコンポーネントの文字色を変える</h2>
+
+<p>手始めに先ほど作った<code>Hello</code>コンポーネントの文字を赤色に設定してみましょう。</p>
+
+<pre><code>const Hello = () =&gt; (
+  &lt;div style={{ color: 'red'}}&gt;Hello&lt;/div&gt;
+);
+</code></pre>
+
+<p>赤文字になりましたか？</p>
+
+<p>この記法は慣れるまで注意が必要です。<code>{}</code>が二重になっていますがそれぞれ意味が違います。</p>
+
+<p>試しに、スタイルの定義を外出ししてみましょう。</p>
+
+<pre><code>const helloStyle = { color: 'red' };
+const Hello = () =&gt; (
+  &lt;div style={helloStyle}&gt;Hello&lt;/div&gt;
+);
+</code></pre>
+
+<p>helloStyleの<code>{}</code>は一般的なJavaScriptのオブジェクト定義のものです。
+一方、<code>&lt;div&gt;</code>内の<code>{}</code>はReactの記法であり内部にJavaScript表現を書けるようにするものです。</p>
+
+<h2 id="javascript">JavaScriptオブジェクトによるスタイルの定義</h2>
+
+<p>上記の</p>
+
+<pre><code>const helloStyle = { color: 'red' };
+</code></pre>
+
+<p>は、CSSとは異なるため注意しましょう。</p>
+
+<p>オブジェクトのキーの部分は、camel caseで書きます。
+例えば、CSSの<code>margin-left</code>は<code>marginLeft</code>となります。</p>
+
+<p>オブジェクトの値の部分は、通常文字列で書きます。
+上記のように<code>'red'</code>となります。
+ただしpx指定の場合は、数値で代用することもできます。</p>
+
+<p>結果として、例えば次のように書くことができます。</p>
+
+<pre><code>const helloStyle = {
+  color: 'red',
+  marginLeft: 100,
+};
+</code></pre>
+
+<h2 id="inlinestyles">inline stylesを使わない場合</h2>
+
+<p>従来のCSSを使うこともできます。その場合の注意点は、<code>class</code>の代わりに<code>className</code>を使うことです。これはXMLによる制限です。</p>
+
+<pre><code>const Hello = () =&gt; (
+  &lt;div className="hello"&gt;Hello&lt;/div&gt;
+);
+</code></pre>
+
+<p>CSSをどのように読み込むかはHTMLファイル側の問題であり、
+基本的にはReactとは関係ありません。</p>
+
+<h2 id="-1">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const Hello = () =&gt; (
+  &lt;div style={{ color: 'red'}}&gt;Hello&lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello /&gt;
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-2">オプション課題</h2>
+
+<ol>
+<li>Helloコンポーネントの背景色を設定してみよう</li>
+
+<li>文字のサイズを大きくしてみよう</li>
+
+<li>スタイルを外部定義して複数のコンポーネントに共通のスタイルを適用してみよう</li>
+</ol>

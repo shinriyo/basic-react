@@ -1,0 +1,103 @@
+<link href="http://markdowncss.github.io/modest/css/modest.css" rel="stylesheet">
+
+<h1 id="">新しいコンポーネントを定義する</h1>
+
+<h2 id="-1">基本のコンポーネント記法</h2>
+
+<p>コンポーネントはUIの構成要素です。Reactでは、コンポーネントを組み合わせてUIを作ります。コンポーネントには表示系のだけでなく処理も記述します。まずは基本のコンポーネントの書き方を覚えましょう。</p>
+
+<p><a href="http://facebook.github.io/react/docs/reusable-components.html#stateless-functions">Stateless function component</a>の書き方を基本として使います。</p>
+
+<h2 id="-2">初期状態のコード</h2>
+
+<p>JavaScriptエリアに下記のコードを書きましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;Hello React!&lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-3">簡単な修正</h2>
+
+<p><code>App</code>内で定義されている<code>&lt;div&gt;</code>はHTMLの記法と似ています。これはJSXと言ってXMLであり正確にはJavaScriptに変換されるものです。
+<code>&lt;div&gt;</code>以外にもいくつかのタグが使えるので試してみましょう。
+例えば、<code>&lt;h1&gt;</code>や<code>&lt;p&gt;</code>などに変更してみましょう。</p>
+
+<h2 id="reactdom">ReactDOMについて</h2>
+
+<p>JavaScriptの最後の2行は、Reactコンポーネントをブラウザに描画するためのものです。
+この部分を修正することはないので、そのまま最後の2行として置いておきましょう。</p>
+
+<h2 id="hello">Helloコンポーネントの定義</h2>
+
+<p>Reactのコンポーネントは再利用可能なパーツです。
+例えば、Helloと言うテキストを表示するコンポーネントを新しく定義してみましょう。</p>
+
+<p>コンポーネントは大文字で始まる名前にします。HTMLのタグと区別するためです。
+今回は<code>Hello</code>というコンポーネントを定義しましょう。</p>
+
+<pre><code>const Hello = () =&gt; (
+  &lt;div&gt;Hello&lt;/div&gt;
+);
+</code></pre>
+
+<p>このような感じになります。
+コンポーネントは一つのdivで作りその中に要素を入れることを基本とします。</p>
+
+<h2 id="hello-1">Helloコンポーネントを使う</h2>
+
+<p>コンポーネントを使うには、他のコンポーネントで読み込む形になります。
+すでにあるAppコンポーネントからHelloコンポーネントを使ってみましょう。</p>
+
+<pre><code>const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello /&gt;
+  &lt;/div&gt;
+);
+</code></pre>
+
+<p>ここで注意することは、XMLの書き方です。XMLはHTMLと違い必ず閉じタグが必要になります。
+<code>&lt;Hello /&gt;</code>は<code>&lt;Hello&gt;&lt;/Hello&gt;</code>の省略記法です。</p>
+
+<p>「Hello」のみが表示されましたか？</p>
+
+<h2 id="-4">コンポーネントを定義する位置</h2>
+
+<p>今回の実行環境では、コンポーネントの定義はどの順序で書いても動きます。</p>
+
+<p>しかし、今後のために、コンポーネントの定義は
+使う位置より上に書くようにするとよいでしょう。
+つまり、Helloコンポーネントを定義してから、
+Appコンポーネントを定義するのがよいです。</p>
+
+<p>実際の開発では、コンポーネントをファイル毎に定義することが多く、
+それをexport/importして使うことになります。</p>
+
+<h2 id="-5">本レッスン後のソースコードの状態</h2>
+
+<pre><code>const Hello = () =&gt; (
+  &lt;div&gt;Hello&lt;/div&gt;
+);
+
+const App = () =&gt; (
+  &lt;div&gt;
+    &lt;Hello /&gt;
+  &lt;/div&gt;
+);
+
+const render = () =&gt; ReactDOM.render(&lt;App /&gt;, document.getElementById('app'));
+render();
+</code></pre>
+
+<h2 id="-6">オプション課題</h2>
+
+<ol>
+<li>さらに新しいコンポーネントを作ってAppに追加してみよう</li>
+
+<li>Helloコンポーネントの中身を複数のタグを使って表現してみよう</li>
+
+<li>さらに新しいコンポーネントを作ってHelloに追加してみよう</li>
+</ol>
